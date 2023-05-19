@@ -318,8 +318,19 @@ ORDER BY tot_awords DESC
 LIMIT 1;
 ```
 
-- Selezionare le categorie dei videogame i quali hanno una media recensioni inferiore a 1.5 (10)
+- Selezionare le categorie dei videogame i quali hanno una media recensioni inferiore a 2 (10)
 
 ```sql
-
+SELECT DISTINCT c.*
+FROM videogames v
+	JOIN category_videogame cv
+		ON v.id = cv.videogame_id
+JOIN categories c 
+	ON c.id = cv.category_id
+JOIN (
+    SELECT videogame_id , AVG(rating) AS avg_rating
+    FROM reviews
+    GROUP BY videogame_id 
+) r ON v.id = r.videogame_id
+WHERE avg_rating < 2 ;
 ```
