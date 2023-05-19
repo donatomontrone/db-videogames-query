@@ -8,19 +8,95 @@ WHERE country LIKE "united states";
 ```
 
 - Selezionare tutti i giocatori della città di 'Rogahnland' (2)
+
+```sql
+SELECT *
+FROM players p 
+WHERE city LIKE "Rogahnland";
+```
+
 - Selezionare tutti i giocatori il cui nome finisce per "a" (220)
+
+```sql
+SELECT *
+FROM players p 
+WHERE name LIKE "%a";
+```
+
 - Selezionare tutte le recensioni scritte dal giocatore con ID = 800 (11)
+
+```sql
+SELECT *
+FROM reviews r 
+WHERE player_id = 800;
+```
+
 - Contare quanti tornei ci sono stati nell'anno 2015 (9)
+
+```sql
+SELECT COUNT(*) 
+FROM tournaments t 
+WHERE year = 2015;
+```
+
 - Selezionare tutti i premi che contengono nella descrizione la parola 'facere' (2)
+
+```sql
+SELECT * 
+FROM awards a  
+WHERE description LIKE "%facere%";
+```
 - Selezionare tutti i videogame che hanno la categoria 2 (FPS) o 6 (RPG), mostrandoli una sola volta (del videogioco vogliamo solo l'ID) (287)
+
+```sql
+SELECT DISTINCT videogame_id 
+FROM category_videogame cv 
+WHERE category_id = 2 
+	OR category_id = 6; 
+```
+
 - Selezionare tutte le recensioni con voto compreso tra 2 e 4 (2947)
+
+```sql
+SELECT * 
+FROM reviews r 
+WHERE rating BETWEEN 2 AND 4;
+```
+
 - Selezionare tutti i dati dei videogiochi rilasciati nell'anno 2020 (46)
-- Selezionare gli id dei videogame che hanno ricevuto almeno una recensione da stelle, mostrandoli una sola volta (443)
+
+```sql
+SELECT *
+FROM videogames v 
+WHERE YEAR(release_date) = 2020; 
+```
+
+- Selezionare gli id dei videogame che hanno ricevuto almeno una recensione da 5 stelle, mostrandoli una sola volta (443)
+
+```sql
+SELECT DISTINCT videogame_id  
+FROM reviews r 
+WHERE rating >= 5;
+```
 
 
 #### Bonus
 - Selezionare il numero e la media delle recensioni per il videogioco con ID = 412 (review number = 12, avg_rating = 3.16 circa)
+
+```sql
+SELECT COUNT(*), AVG(rating) 
+FROM reviews r
+WHERE videogame_id = 412;
+```
+
 - Selezionare il numero di videogame che la software house con ID = 1 ha rilasciato nel 2018 (13)
+
+```sql
+SELECT COUNT(*)  
+FROM videogames v 
+WHERE software_house_id = 1
+AND YEAR(release_date) = 2018;
+```
 
 ### GROUP BY
 - Contare quante software house ci sono per ogni paese (3)
