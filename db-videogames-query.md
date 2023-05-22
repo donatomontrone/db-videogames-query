@@ -321,16 +321,14 @@ LIMIT 1;
 - Selezionare le categorie dei videogame i quali hanno una media recensioni inferiore a 2 (10)
 
 ```sql
-SELECT DISTINCT c.*
-FROM videogames v
-	JOIN category_videogame cv
-		ON v.id = cv.videogame_id
-JOIN categories c 
-	ON c.id = cv.category_id
-JOIN (
-    SELECT videogame_id , AVG(rating) AS avg_rating
-    FROM reviews
-    GROUP BY videogame_id 
-) r ON v.id = r.videogame_id
-WHERE avg_rating < 2 ;
+SELECT DISTINCT c.name
+FROM videogames v 
+	JOIN reviews r
+		ON v.id = r.videogame_id 
+	JOIN category_videogame cv 
+		On cv.videogame_id = v.id 
+	JOIN categories c
+		ON c.id = cv.category_id
+GROUP BY c.id, v.id 
+HAVING AVG(r.rating) < 2; 
 ```
